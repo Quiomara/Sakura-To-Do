@@ -1,0 +1,213 @@
+/* Estilo general del contenedor */
+.sakura-task-list {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #FFF9FB;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(255, 182, 193, 0.2);
+}
+
+/* Título con decoración */
+.sakura-title {
+  font-family: 'Playfair Display', serif;
+  color: #FF8FAB;
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  letter-spacing: 1px;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, #FFB7C5, transparent);
+    margin: 10px auto;
+  }
+}
+
+/* Mensaje cuando no hay tareas */
+.no-tasks {
+  text-align: center;
+  color: #FFB7C5;
+  font-size: 1.1rem;
+  margin: 2rem 0;
+
+  .sakura-icon {
+    font-size: 2rem;
+    margin-top: 1rem;
+    opacity: 0.6;
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
+/* Lista de tareas */
+.task-container {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Item de tarea */
+.task-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  background-color: white;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  border-left: 3px solid #FFD6E0;
+  box-shadow: 0 2px 8px rgba(255, 182, 193, 0.1);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 182, 193, 0.2);
+  }
+
+  &.completed {
+    opacity: 0.7;
+    border-left-color: #C8E7C9;
+
+    .task-title {
+      text-decoration: line-through;
+      color: #FFB7C5;
+    }
+
+    .checkmark {
+      background-color: #C8E7C9;
+      border-color: #C8E7C9;
+    }
+  }
+}
+
+.task-checkbox {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  margin-right: 1.5rem;
+  width: 24px;
+  height: 24px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background-color: white;
+    border: 2px solid #FFB7C5;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(255, 182, 193, 0.2);
+
+    &:hover {
+      border-color: #FF8FAB;
+      transform: scale(1.05);
+    }
+
+    &::after {
+      content: "✿";
+      color: white;
+      font-size: 14px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%); /* Centrado perfecto */
+      border: none;
+      width: auto; /* Ancho automático para el símbolo */
+      height: auto;
+      display: none;
+    }
+  }
+
+  input:checked ~ .checkmark {
+    background-color: #FF8FAB;
+    border-color: #FF8FAB;
+    box-shadow: 0 2px 8px rgba(255, 143, 171, 0.3);
+
+    &::after {
+      display: block;
+    }
+  }
+}
+
+/* Texto de la tarea */
+.task-title {
+  flex-grow: 1;
+  font-size: 1.05rem;
+  color: #5A5A5A;
+  transition: all 0.3s;
+}
+
+/* Botón de eliminar */
+.delete-btn {
+  background: none;
+  border: none;
+  color: #FF8FAB;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s;
+  padding: 0.5rem;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: white;
+    background-color: #FF8FAB;
+    transform: scale(1.1);
+  }
+}
+
+/* Animación para el icono sakura */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Animación de eliminación */
+.task-item.deleting {
+  animation: fadeOutLeft 0.4s ease forwards;
+  pointer-events: none;
+  opacity: 1;
+  background-color: rgba(255, 214, 224, 0.3);
+}
+
+@keyframes fadeOutLeft {
+  to {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+
+/* Estilo para elementos deshabilitados */
+.delete-btn:disabled,
+.task-checkbox input:disabled ~ .checkmark {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Transición suave para el modal */
+app-delete-confirm-modal {
+  display: block;
+  position: fixed;
+  z-index: 1000;
+}

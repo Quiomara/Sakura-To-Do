@@ -1,0 +1,19 @@
+<div class="sakura-form-container">
+  <div class="sakura-form-header">
+    <h2 class="sakura-form-title">Nueva Tarea</h2>
+    <div class="sakura-decoration">🌸</div>
+  </div>
+
+  <div class="sakura-form-group">
+    <input
+      type="text"
+      [(ngModel)]="newTaskTitle"
+      placeholder="Escribe tu tarea aquí..."
+      class="sakura-input"
+      name="newTaskTitle"
+    />
+    <button (click)="addTask()" class="sakura-button">
+      <i class="fas fa-plus"></i> Agregar
+    </button>
+  </div>
+</div>

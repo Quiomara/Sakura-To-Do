@@ -1,0 +1,19 @@
+<div class="sakura-modal-overlay" (click)="closeModal()">
+    <div class="sakura-modal" (click)="$event.stopPropagation()">
+      <h3 class="modal-title">
+        <i class="fas fa-exclamation-circle"></i> Confirmar
+      </h3>
+      <p class="modal-message">
+        ¿Estás segura de querer eliminar esta tarea?<br>
+        <small>Esta acción no se puede deshacer</small>
+      </p>
+      <div class="modal-buttons">
+        <button class="modal-btn btn-cancel" (click)="closeModal()">
+          Cancelar
+        </button>
+        <button class="modal-btn btn-confirm" (click)="confirmDelete()">
+          Sí, eliminar
+        </button>
+      </div>
+    </div>
+  </div>

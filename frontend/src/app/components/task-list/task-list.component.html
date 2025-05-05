@@ -1,0 +1,41 @@
+<div class="sakura-task-list">
+  <h2 class="sakura-title">🌸 Lista de Tareas</h2>
+
+  <div *ngIf="tasks.length === 0" class="no-tasks">
+    <p>No hay tareas aún...</p>
+    <div class="sakura-icon">🌸</div>
+  </div>
+
+  <ul class="task-container">
+    <li *ngFor="let task of tasks" 
+        class="task-item" 
+        [class.completed]="task.completed"
+        [class.deleting]="isTaskDeleting(task.id)"
+        [attr.data-task-id]="task?.id">
+        
+      <label class="task-checkbox">
+        <input type="checkbox" 
+               [checked]="task.completed" 
+               (change)="toggleCompleted(task)"
+               [disabled]="isTaskDeleting(task.id)">
+        <span class="checkmark"></span>
+      </label>
+      
+      <span class="task-title">{{ task.title }}</span>
+      
+      <button *ngIf="task.id !== undefined" 
+              class="delete-btn" 
+              (click)="deleteTask(task.id)"
+              [disabled]="isTaskDeleting(task.id)">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+    </li>
+  </ul>
+
+  <!-- Modal de Confirmación -->
+  <app-delete-confirm-modal 
+    *ngIf="showDeleteModal"
+    (confirmed)="onDeleteConfirmed()"
+    (cancelled)="onDeleteCancelled()">
+  </app-delete-confirm-modal>
+</div>
